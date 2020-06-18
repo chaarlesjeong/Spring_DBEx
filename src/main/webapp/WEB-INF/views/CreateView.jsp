@@ -15,7 +15,11 @@
 <form action="ReadView.jsp" method="post">
 姓名: <input type="text" name="name" />${array.name}<br/>
 年齡: <input type="text" name="age" />${array.age}<br/>
-<input type="submit" value="追加">
+<input type="submit" value="追加"
+<script type="text/javascript">
+if(name === "" || age === "") {alert("빈 部分이 있읍니다.")}
+</script>
+>
 </form>
 </c:forEach>
 

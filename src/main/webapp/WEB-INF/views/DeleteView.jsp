@@ -8,7 +8,8 @@
 <title>DeleteView</title>
 </head>
 <body>
-	<h1>오라-클 데이타 削除</h1>
+	<h1>오라-클 데이타 削除</h1><br/>
+	<h3>姓名 검색 후 削除</h3>
 	<hr />
 
 <form action="ReadView.jsp" method="post">

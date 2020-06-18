@@ -2,8 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>Spring04</groupId>
-	<artifactId>Spring04</artifactId>
+	<groupId>Spring06</groupId>
+	<artifactId>Spring06</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring01 Maven Webapp</name>
@@ -51,7 +51,7 @@
 			<version>1.1.1</version>
 		</dependency>
 
-		<dependency>
+ 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>2.8.8</version>
@@ -67,7 +67,7 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.8.8</version>
-		</dependency>
+		</dependency> 
 
 	</dependencies>
 

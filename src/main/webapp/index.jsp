@@ -5,51 +5,109 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <head>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- axios 불러오는 CDN -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <title>메인 페이-지</title>
 
 <!-- 최신 버전의 jQuery 불러오기 -->
-<!-- dataType를 json으로 고칠 것 -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-	/* $(document).ready(function() {
 
-		$.ajax({
-			type : "POST",
-			url : "InputData.jsp",
-			datatype : "json",
-			error : function() {
-				alert('通新 失敗!, 다시 試圖하십시요.');
-			},
-			success : function(Parse_data) {
+// 데이터 생성 함수
+	function Create() {
+		var name = $("input#name").val();
+		var age = $("input#age").val();
 
-				$("#Parse_Area").html(Parse_data);
-				alert("通新 데이타 값 : " + Parse_data);
-			}
+		//post 참조값이 java Controller 주소와 맞춰야 함
+		axios.post("create", {
+			name : name,
+			age : age,
+		}).then(function(res) {
+			console.log(res.data);
+		})
+	}
 
-		});
-	});
-	 */
+//데이터 목록 조회
+	var datas =[];
+	function read(){
+		axios.get("read").then(new Promise(function(res) {
+			return res.data;
+		})).then(temp => {
+			datas=temp;
+			console.log(datas,"2");
+			return datas;
+		})
+		console.log(datas,"4");
+		var text = '';
+	}
 
-	$(function() {
-		$("#readButton").click(function() {
+	//데이터 갱신
+	function Update() {
+		var name = $("input#updateName").val();
+		var age = $("input#updateAge").val();
 
-			$.ajax({
-				url : "read",
-				async : false,
-				type : "post",
-				dataType : "json",
-				success : function(json) {
-					console.log(json);
-				},
-				error : function() {
-					alert("通新 失敗!, 다시 試圖하십시요.")
-				}
-			});
-		});
-	});
+		axios.post("update", {
+			name : name,
+			age : age,
+		}).then(function(res) {
+			console.log(res.data);
+		})
+	}
+
+	//데이터 이름 기준 검색 후 삭제
+	function deleteByName() {
+		var name = $("input#deleteName").val();
+
+		axios.post("delete", {
+			name : name,
+			age : age,
+		}).then(function(res) {
+			console.log(res.data);
+		})
+	}
+	
+	/* //div(내용) 표시하고 숨기는 부분
+	function readText(){
+		var text = document.getElementById("read");
+		if(text.style.display === "none"){
+			text.style.display = "block";
+			console.log("목록 표시");
+		} else{
+			text.style.display = "none";
+			console.log("목록 숨김");
+		}
+	}
+	function createText(){
+		var text = document.getElementById("create");
+		if(text.style.display === "none"){
+			text.style.display = "block";
+			console.log("작성 표시");
+		} else{
+			text.style.display = "none";
+			console.log("작성 숨김");
+		}
+	}
+	function updateText(){
+		var text = document.getElementById("update");
+		if(text.style.display === "none"){
+			text.style.display = "block";
+			console.log("갱신 표시");
+		} else{
+			text.style.display = "none";
+			console.log("갱신 숨김");
+		}
+	}
+	function deleteText(){
+		var text = document.getElementById("delete");
+		if(text.style.display === "none"){
+			text.style.display = "block";
+			console.log("삭제 표시");
+		} else{
+			text.style.display = "none";
+			console.log("삭제 숨김");
+		}
+	} */
 </script>
-
-
 
 </head>
 
@@ -62,22 +120,96 @@
 	<h3>원하시는 技能을 選擇하세요.</h3>
 	<br />
 	<hr />
-	<a href="read">오라-클 데이타 目錄(Read)</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button onclick="Read()">오라-클 데이타 目錄(Read)</button>
+
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button onclick="createText()">오라-클 데이타 作成(Create)</button>
+
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button onclick="updateText()">오라-클 데이타 更新(Update)</button>
+
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button onclick="deleteText()">오라-클 데이타 削除(Delete)</button>
+	<hr />
+	&nbsp;&nbsp;&nbsp;&nbsp;
+
 	<br />
-	<a href="create">오라-클 데이타 作成(Create)</a>
+	<!-- Read -->
+	<div id="read">
+	<h1>오라-클 데이타 目錄</h1>
+	<hr />
+	<table border="1">
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>年齡</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="array" items="${array}">
+				<tr>
+					<td>${array.name}</td>
+					<td>${array.age}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+
 	<br />
-	<a href="update">오라-클 데이타 更新(Update)</a>
-	<br />
-	<a href="delete">오라-클 데이타 削除(Delete)</a>
-	<br />
+	<hr />
+	</div>
+	
+	<!-- Create -->
+	
+<!-- 	<div id="create" style="display: none" > -->
+<!-- 	 <div id="create" >
+		<h1>오라-클 데이타 作成</h1>
+		<hr />
+			<form method="post">
+				姓名(한글로 쓰시오): <input type="text" id="createName"/><br/>
+				年齡(숫자로 쓰시오): <input type="text" id="createAge"/><br/>
+				<input type="submit" value="追加">
+				<script type="text/javascript">
+				if(name === "" || age === "") {
+				alert("빈 部分이 있읍니다.");
+				} else {
+				alert("追加되었읍니다.");
+				}
+				</script>
+				
+			</form>
+		
+	</div> 
+	 -->
+	<!-- Update-->
+<!-- 
+	<div id="update" >
+
+		<h1>오라-클 데이타 更新</h1>
+		<hr />
+		<form action="ReadView.jsp" method="post">
+		姓名: <input type="text" id="updateName" /><br /> 
+		年齡: <input type="text" id="updateAge" /><br />
+		<input type="submit" value="更新">
+		</form>
+	</div>
 
 
 
-	<a href="read">오라-클 데이타 目錄(Read)</a>
-	<br /> &nbsp;&nbsp;&nbsp;&nbsp;
-	<button id="readButton">이 페이지에 데이타 卽時 要請(Read)</button>
-	<div id="listLayout"></div>
+	Delete
+	
+	<div id="delete">
+			<h1>오라-클 데이타 削除</h1><br/>
+			<h3>姓名 검색 후 削除</h3>
+		<hr />
 
+		<form action="ReadView.jsp" method="post">
+			姓名: <input type="text" id="deleteName" /><br /> 
+			年齡: <input type="text"	 id="deleteAge" /><br /> 
+				<input type="submit" value="削除">
+		</form>
 
-	<!-- 	<button id="id01">이 페이지에 데이타 卽時 要請(Read)</button><br/> -->
+	</div>
+	 -->
 </body>
