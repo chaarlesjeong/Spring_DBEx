@@ -32,13 +32,19 @@
 	function read(){
 		axios.get("read").then(new Promise(function(res) {
 			return res.data;
-		})).then(temp => {
+		})).then(function (temp) {
 			datas=temp;
 			console.log(datas,"2");
 			return datas;
 		})
 		console.log(datas,"4");
 		var text = '';
+		
+		for(var i=0; i < datas.length; ++i){
+			text+= '<td>' + datas[i].name + '</td>'
+			text+= '<td>' + datas[i].age.toString + '</td>' + '<br/>'
+		}
+
 	}
 
 	//데이터 갱신
@@ -121,7 +127,7 @@
 	<br />
 	<hr />
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<button onclick="Read()">오라-클 데이타 目錄(Read)</button>
+	<button onclick="read()">오라-클 데이타 目錄(Read)</button>
 
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<button onclick="createText()">오라-클 데이타 作成(Create)</button>
@@ -147,15 +153,20 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="array" items="${array}">
+
+			<%-- <c:forEach var="datas" items="${datas}" begin=0 end="${datas.length}" step=1> --%>
 				<tr>
-					<td>${array.name}</td>
-					<td>${array.age}</td>
+<%-- 					<td>${datas.name}</td>
+					<td>${datas.age}</td> --%>
+					<script>
+					//foreach 왜 안 먹지?????
+					document.getElementById("read")
+					</script>
 				</tr>
-			</c:forEach>
+			<%-- </c:forEach> --%>
 		</tbody>
 	</table>
-
+<script>console.log("목록 끝")</script>
 	<br />
 	<hr />
 	</div>

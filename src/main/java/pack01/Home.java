@@ -35,6 +35,7 @@ public class Home {
 		try {
 			while (rs.next()) {
 				users.add(new User(rs.getString("name"), rs.getInt("age")));
+				System.out.println("oracle");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

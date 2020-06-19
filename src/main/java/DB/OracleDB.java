@@ -28,7 +28,8 @@ public class OracleDB {
 			System.out.println("오라클 연결 실패");
 		}
 	}
-	//Read
+
+	// Read
 	public ResultSet executeQuery(String sql) {
 		try {
 
@@ -45,7 +46,7 @@ public class OracleDB {
 
 	}
 
-	//CUD
+	// CUD
 	public int executeUpdateQuery(String sql) {
 		int result = 0;
 		try {
